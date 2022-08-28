@@ -1,8 +1,21 @@
 let express = require('express')
+const { connection } = require('./src/common/database')
 let app = express()
 
-app.get('/test', (req, res) => {
-    res.send('<h1> sa worldlfsdldf world</h1>')
+app.use(express.json())
+
+
+
+app.post('/create', (req, res) => {
+    console.log(req.body)
+    connection.query(`insert into contactsforgoogle (fullname,phone,email,website) values ('${req.body.fullname}','${req.body.phone}','${req.email}','${req.website}')`, (err, result) => {
+        if (err) {
+            console.log(err)
+        } else {
+            res.send('data has been inserted successfully')
+        }
+    })
+
 })
 
 
